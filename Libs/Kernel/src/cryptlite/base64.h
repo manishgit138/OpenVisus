@@ -142,12 +142,12 @@ class base64 {
 
  private:
   static const char enctable[65];
-  static const char dectable[128];
+  static const signed char dectable[128];
 
 }; // end of class
 
 const char base64::enctable[65] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
-const char base64::dectable[128] = {
+const signed char base64::dectable[128] = {
   -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
   -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
   -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 62, -1, -1, -1, 63,
