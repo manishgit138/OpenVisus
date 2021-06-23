@@ -193,4 +193,20 @@ jobs:
         docker run -e PYTHON_VERSION=3.6 -e Qt5_DIR=/opt/qt512 -v ${PWD}:${PWD}  -w ${PWD} ab1997/portable-linux-binaries:latest /bin/bash -c "./scripts/build_linux.sh"
         sudo chown -R root:root  build
         sudo chmod -R a+rwx      build
-        ls -l build/Release/OpenVisus
+        docker run --rm -v ${{ github.workspace }}:/ws:rw --workdir=/ws \
+          ${{ env.img }} \
+          bash -exc '${{ env.py }} -m pip install virtualenv && ${{ env.py }} -m venv .env && \
+          source .env/bin/activate && \
+          which python && \
+          cd build/Release/OpenVisus && \
+          export PYTHONPATH=../ && \
+          python  -m OpenVisus configure  || true && \
+          python  -m OpenVisus test && \
+          python  -m OpenVisus test-gui && \
+          python -m pip install setuptools wheel twine --upgrade 1>/dev/null || true && \
+          pushd build/Release/OpenVisus && \
+          export PLATFORM_NAME=manylinux2014_aarch64 && \
+          python setup.py -q bdist_wheel --python-tag=cp${Version:0:1}${Version:2:1} --plat-name=${PLATFORM_NAME} && \
+          python -m twine upload --username ${{ secrets.PYPI_USERNAME }} --password ${{ secrets.PYPI_PASSWORD }} --skip-existing  "dist/*.whl" && \
+          popd && \
+          deactivate'
