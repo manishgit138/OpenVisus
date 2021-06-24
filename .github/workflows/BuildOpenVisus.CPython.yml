@@ -200,6 +200,7 @@ jobs:
           which python && \
           cd build/Release/OpenVisus && \
           export PYTHONPATH=../ && \
+          sudo ldconfig && \
           python  -m OpenVisus configure  || true && \
           python  -m OpenVisus test && \
           python  -m OpenVisus test-gui && \
