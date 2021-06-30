@@ -27,4 +27,4 @@ jobs:
           platforms: linux/arm64
           push: true
           tags: |
-            ab1997/portable-linux-binaries:latest
+            ab1997/portable-linux-binaries:latest-arm64
