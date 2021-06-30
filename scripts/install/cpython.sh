@@ -27,8 +27,8 @@ if [ "$(uname -m)" == "aarch64" ]
 then
    ldconfig
 fi
-/usr/local/bin/python${VERSION:0:1}.${VERSION:2:1} -m pip install -q --upgrade pip
-/usr/local/bin/python${VERSION:0:1}.${VERSION:2:1} -m pip install -q numpy setuptools wheel twine 
+/usr/local/bin/python${VERSION:0:1}.${VERSION:2:1} -m pip install --upgrade pip
+/usr/local/bin/python${VERSION:0:1}.${VERSION:2:1} -m pip install numpy setuptools wheel twine 
 
 # clean up
 rm -Rf ./Python-${VERSION}*
