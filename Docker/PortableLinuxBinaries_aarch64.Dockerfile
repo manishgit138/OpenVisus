@@ -16,7 +16,7 @@ ENV LANGUAGE en_US.UTF-8
 
 WORKDIR /install
 
-RUN yum -y install xz zlib zlib-devel
+RUN yum -y install xz zlib zlib-devel openssl-devel
 
 COPY scripts/install/patchelf.sh .
 RUN bash  patchelf.sh
