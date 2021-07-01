@@ -23,6 +23,11 @@ make
 make altinstall
 popd
 
+if [ "$(uname -m)" == "aarch64" ]
+then
+   ldconfig
+fi
+
 #if [ "$(uname -m)" == "aarch64" ]
 #then
 #   ldconfig
