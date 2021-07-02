@@ -28,10 +28,6 @@ then
    ldconfig
 fi
 
-#if [ "$(uname -m)" == "aarch64" ]
-#then
-#   ldconfig
-#fi
 /usr/local/bin/python${VERSION:0:1}.${VERSION:2:1} -m pip install --upgrade pip
 /usr/local/bin/python${VERSION:0:1}.${VERSION:2:1} -m pip install numpy setuptools wheel twine 
 
