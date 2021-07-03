@@ -37,7 +37,7 @@ pushd qt-everywhere-src-5.12.8
 	-skip x11extras \
 	-skip qtgamepad 
 
-make 
+make -j4
 make install 
 
 popd
