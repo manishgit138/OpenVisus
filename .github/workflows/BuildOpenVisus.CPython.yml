@@ -198,11 +198,11 @@ jobs:
           ${{ env.img }} \
           bash -exc '${{ env.py }} -m pip install virtualenv && ${{ env.py }} -m venv .env && \
           source .env/bin/activate && \
-          #which python && \
-          #cd build/Release/OpenVisus && \
-          #export PYTHONPATH=../ && \
-          #ldconfig && \
-          #python  -m OpenVisus configure  || true && \
+          which python && \
+          cd build/Release/OpenVisus && \
+          export PYTHONPATH=../ && \
+          ldconfig && \
+          python  -m OpenVisus configure  || true && \
           #python  -m OpenVisus test && \
           #python  -m OpenVisus test-gui && \
           #python -m pip install setuptools wheel twine --upgrade 1>/dev/null || true && \
