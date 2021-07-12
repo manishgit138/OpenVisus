@@ -206,6 +206,8 @@ jobs:
           cd build/Release/OpenVisus && \
           export PYTHONPATH=../ && \
           python  -m OpenVisus configure  || true && \
+          python  -m OpenVisus test && \
+          python  -m OpenVisus test-gui && \
           deactivate'
         #docker run --rm -v ${{ github.workspace }}:/ws:rw --workdir=/ws \
         #  ${{ env.img }} \
