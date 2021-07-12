@@ -195,21 +195,34 @@ jobs:
         sudo chown -R root:root  build
         sudo chmod -R a+rwx      build
         docker run --rm -v ${{ github.workspace }}:/ws:rw --workdir=/ws \
-          ${{ env.img }} \
-          bash -exc '${{ env.py }} -m pip install virtualenv && ${{ env.py }} -m venv .env && \
-          source .env/bin/activate && \
+          arm64v8/ubuntu:20.04 \
+          bash -exc 'apt-get -y update && apt-get -y install sudo libgeos-dev software-properties-common && \
+          sudo add-apt-repository ppa:deadsnakes/ppa && \
+          sudo apt-get update && \
+          sudo apt-get install -y python3.6 python3-pip python3.6-venv && \
+          python3.6 -m pip install virtualenv && python3.6 -m venv py36-venv && \
+          source py36-venv/bin/activate && \
           which python && \
           cd build/Release/OpenVisus && \
           export PYTHONPATH=../ && \
-          ldconfig && \
           python  -m OpenVisus configure  || true && \
-          #python  -m OpenVisus test && \
-          #python  -m OpenVisus test-gui && \
-          #python -m pip install setuptools wheel twine --upgrade 1>/dev/null || true && \
-          pushd build/Release/OpenVisus && \
-          export PLATFORM_NAME=manylinux2014_aarch64 && \
-          export Python=${{ env.python-version }} && \
-          python setup.py -q bdist_wheel --python-tag=${Python:2:1}.${Python:3:1} --plat-name=${PLATFORM_NAME} && \
-          #python -m twine upload --username ${{ secrets.PYPI_USERNAME }} --password ${{ secrets.PYPI_PASSWORD }} --skip-existing  "dist/*.whl" && \
-          popd && \
           deactivate'
+        #docker run --rm -v ${{ github.workspace }}:/ws:rw --workdir=/ws \
+        #  ${{ env.img }} \
+        #  bash -exc '${{ env.py }} -m pip install virtualenv && ${{ env.py }} -m venv .env && \
+        #  source .env/bin/activate && \
+        #  which python && \
+        #  cd build/Release/OpenVisus && \
+        #  export PYTHONPATH=../ && \
+        #  ldconfig && \
+        #  python  -m OpenVisus configure  || true && \
+        #  #python  -m OpenVisus test && \
+        #  #python  -m OpenVisus test-gui && \
+          #python -m pip install setuptools wheel twine --upgrade 1>/dev/null || true && \
+        #  pushd build/Release/OpenVisus && \
+        #  export PLATFORM_NAME=manylinux2014_aarch64 && \
+        #  export Python=${{ env.python-version }} && \
+        #  python setup.py -q bdist_wheel --python-tag=${Python:2:1}.${Python:3:1} --plat-name=${PLATFORM_NAME} && \
+        #  #python -m twine upload --username ${{ secrets.PYPI_USERNAME }} --password ${{ secrets.PYPI_PASSWORD }} --skip-existing  "dist/*.whl" && \
+        #  popd && \
+        #  deactivate'
